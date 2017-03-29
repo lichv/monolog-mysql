@@ -1,8 +1,8 @@
 <?php
-
 namespace Logger\Laravel\Provider;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Artisan;
 
 class MonologMysqlHandlerServiceProvider extends ServiceProvider
 {
@@ -18,12 +18,13 @@ class MonologMysqlHandlerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot(){
         $path = realpath(__DIR__ . '/../migrations');
         $this->publishes([
             $path => database_path('migrations')
         ]);
+        $migratePath = substr($path,strlen(base_path())+1);
+        Artisan::call('migrate',['--path'=>$migratePath]);
     }
 
     /**
@@ -31,8 +32,7 @@ class MonologMysqlHandlerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register(){
         //
     }
 
@@ -41,8 +41,7 @@ class MonologMysqlHandlerServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
-    {
+    public function provides(){
         return array();
     }
 }

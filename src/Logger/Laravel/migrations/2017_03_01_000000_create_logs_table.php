@@ -1,18 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogsTable extends Migration
-{
+class CreateLogsTable extends Migration{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('logs', function($table)
-        {
+    public function up(){
+        Schema::create('logs', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->bigIncrements('id');
@@ -21,13 +20,10 @@ class CreateLogsTable extends Migration
             $table->string('level_name', 100);
             $table->text('message');
             $table->text('context');
-
-            $table->int('remote_addr');
+            $table->integer('remote_addr');
             $table->string('user_agent');
             $table->string('session_id');
-            $table->int('created_by')->index();
-
-            $table->dateTime('created_at');
+            $table->timestamps();
         });
     }
 
@@ -36,8 +32,7 @@ class CreateLogsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down(){
         Schema::drop('logs');
     }
 }
