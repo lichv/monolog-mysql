@@ -23,8 +23,6 @@ class MonologMysqlHandlerServiceProvider extends ServiceProvider
         $this->publishes([
             $path => database_path('migrations')
         ]);
-        $migratePath = substr($path,strlen(base_path())+1);
-        Artisan::call('migrate',['--path'=>$migratePath]);
     }
 
     /**

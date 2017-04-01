@@ -35,8 +35,8 @@ class MysqlHandler extends AbstractProcessingHandler{
         $tablename = empty($table)?'logs'.date("Ym",time()):$table;
         $result = DB::select('show tables like "'.$tablename.'"');
         if(empty($result)){
-            $result = DB::statement('create table '.$tablename.' like `logs`');
-            return empty($result)?$tablename:false;
+            $sql = "CREATE TABLE IF NOT EXISTS `".$tablename."` (`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,`channel` varchar(50) COLLATE utf8_unicode_ci NOT NULL,`level` varchar(50) COLLATE utf8_unicode_ci NOT NULL,`level_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,`message` text COLLATE utf8_unicode_ci NOT NULL,`context` text COLLATE utf8_unicode_ci NOT NULL,`remote_addr` int(11) NOT NULL,`user_agent` varchar(255) COLLATE utf8_unicode_ci NOT NULL,`session_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,`created_at` timestamp NULL DEFAULT NULL,`updated_at` timestamp NULL DEFAULT NULL,PRIMARY KEY (`id`),KEY `logs_channel_index` (`channel`),KEY `logs_level_index` (`level`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
+            DB::statement($sql);
         }
         $this->table = $tablename;
         return $tablename;
