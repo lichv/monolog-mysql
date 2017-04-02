@@ -6,7 +6,7 @@ use DB;
 use Monolog\Logger;
 use Monolog\Handler\AbstractProcessingHandler;
 
-class MysqlHandler extends AbstractProcessingHandler{
+class MysqlNoSessionHandler extends AbstractProcessingHandler{
     protected $table;
 
     public function __construct($table = '', $level = Logger::DEBUG, $bubble = true){
