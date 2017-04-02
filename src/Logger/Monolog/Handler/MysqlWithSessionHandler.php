@@ -24,7 +24,7 @@ class MysqlHandler extends AbstractProcessingHandler{
             'context'     => json_encode($record['context']),
             'remote_addr' => isset($_SERVER['REMOTE_ADDR'])     ? ip2long($_SERVER['REMOTE_ADDR']) : null,
             'user_agent'  => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT']      : null,
-            'session_id'  => 'no session',
+            'session_id'  => \Session::getId(),
             'created_at'  => $record['datetime']->format('Y-m-d H:i:s')
         ];
 

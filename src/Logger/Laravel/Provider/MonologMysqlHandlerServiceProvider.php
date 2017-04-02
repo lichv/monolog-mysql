@@ -19,10 +19,7 @@ class MonologMysqlHandlerServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot(){
-        $path = realpath(__DIR__ . '/../migrations');
-        $this->publishes([
-            $path => database_path('migrations')
-        ]);
+
     }
 
     /**
